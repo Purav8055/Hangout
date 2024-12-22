@@ -38,3 +38,22 @@ module.exports.register = async (req, res, next) => {
       next(ex);
     }
   };
+  module.exports.setAvatar = async (req, res, next) => {
+    try {
+      const userid = req.params.id;
+      const avatarImage = req.body.image;
+      const user = await User.findByIdAndUpdate(userid, 
+        {
+          isAvatarImageSet: true,
+          avatarImage
+        },
+        {new: true}
+      );
+      return res.json({
+        isSet: user.isAvatarImageSet,
+        image: user.avatarImage,
+      });
+    } catch (ex) {
+      next(ex);
+    }
+  };

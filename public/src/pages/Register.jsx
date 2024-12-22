@@ -77,7 +77,7 @@ const Register = () => {
       if(data.status === true)
       {
         localStorage.setItem("currentUser", JSON.stringify(data.user));
-        navigate("/");
+        navigate("/setAvatar");
       }
     }
   }
