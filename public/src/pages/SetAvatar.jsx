@@ -114,6 +114,7 @@ const Container = styled.div`
   background-color: #131324;
   height: 100vh;
   width: 100vw;
+  padding: 1rem;
 
   .loader {
     max-inline-size: 100%;
@@ -122,11 +123,17 @@ const Container = styled.div`
   .title-container {
     h1 {
       color: white;
+      text-align: center;
+      font-size: 2rem;
     }
   }
+
   .avatars {
     display: flex;
     gap: 2rem;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 0 1rem;
 
     .avatar {
       border: 0.4rem solid transparent;
@@ -143,13 +150,14 @@ const Container = styled.div`
     .selected {
       border: 0.4rem solid #4e0eff;
     }
-    .avatar:hover{
-        border: 0.4rem solid rgba(78, 14, 255, 0.23);
+    .avatar:hover {
+      border: 0.4rem solid rgba(78, 14, 255, 0.23);
     }
     .avatar.selected:hover {
-        border: 0.4rem solid #4e0eff;
+      border: 0.4rem solid #4e0eff;
     }
   }
+
   .submit-btn {
     background-color: #4e0eff;
     color: white;
@@ -160,8 +168,58 @@ const Container = styled.div`
     border-radius: 0.4rem;
     font-size: 1rem;
     text-transform: uppercase;
+    width: auto;
+    min-width: 200px;
     &:hover {
       background-color: #4e0eff;
+    }
+  }
+
+  @media screen and (max-width: 768px) {
+    gap: 2rem;
+
+    .title-container h1 {
+      font-size: 1.75rem;
+    }
+
+    .avatars {
+      gap: 1.5rem;
+      
+      .avatar img {
+        height: 5rem;
+      }
+    }
+
+    .submit-btn {
+      padding: 0.875rem 1.75rem;
+      font-size: 0.9rem;
+    }
+  }
+
+  @media screen and (max-width: 480px) {
+    gap: 1.5rem;
+
+    .title-container h1 {
+      font-size: 1.5rem;
+    }
+
+    .avatars {
+      gap: 1rem;
+      
+      .avatar {
+        padding: 0.3rem;
+        border-width: 0.3rem;
+        
+        img {
+          height: 4rem;
+        }
+      }
+    }
+
+    .submit-btn {
+      padding: 0.75rem 1.5rem;
+      font-size: 0.8rem;
+      min-width: 160px;
     }
   }
 `;

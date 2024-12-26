@@ -113,6 +113,8 @@ const FormContainer = styled.div`
   gap: 1rem;
   align-items: center;
   background-color: #131324;
+  padding: 0 1rem;
+
   .brand {
     display: flex;
     align-items: center;
@@ -120,10 +122,16 @@ const FormContainer = styled.div`
     justify-content: center;
     img {
       height: 5rem;
+      @media screen and (max-width: 480px) {
+        height: 3.5rem;
+      }
     }
     h1 {
       color: white;
       text-transform: uppercase;
+      @media screen and (max-width: 480px) {
+        font-size: 1.5rem;
+      }
     }
   }
 
@@ -134,7 +142,17 @@ const FormContainer = styled.div`
     background-color: #00000076;
     border-radius: 2rem;
     padding: 3rem 5rem;
+    width: 100%;
+    max-width: 500px;
+
+    @media screen and (max-width: 480px) {
+      padding: 2rem;
+      gap: 1.5rem;
+      border-radius: 1.5rem;
+      width: 90%;
+    }
   }
+  
   input {
     background-color: transparent;
     padding: 1rem;
@@ -147,7 +165,13 @@ const FormContainer = styled.div`
       border: 0.1rem solid #997af0;
       outline: none;
     }
+
+    @media screen and (max-width: 480px) {
+      padding: 0.8rem;
+      font-size: 0.9rem;
+    }
   }
+  
   button {
     background-color: #4e0eff;
     color: white;
@@ -161,10 +185,22 @@ const FormContainer = styled.div`
     &:hover {
       background-color: #4e0eff;
     }
+
+    @media screen and (max-width: 480px) {
+      padding: 0.8rem 1.5rem;
+      font-size: 0.9rem;
+    }
   }
+  
   span {
     color: white;
     text-transform: uppercase;
+    text-align: center;
+    
+    @media screen and (max-width: 480px) {
+      font-size: 0.8rem;
+    }
+    
     a {
       color: #4e0eff;
       text-decoration: none;
