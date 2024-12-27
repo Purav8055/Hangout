@@ -14,15 +14,17 @@ app.use("/api/messages", messageRoutes);
 
 app.get("/ping", (_req, res) => {
     return res.json({ msg: "Ping Successful" });
-  });
-
-mongoose.connect(process.env.MONGO_URL).then(()=>{
-    console.log("DB connection successful!");
-}).catch((err)=>{
-    console.log(err.message);
 });
 
-const server = app.listen(process.env.PORT, ()=>{
+mongoose.connect(process.env.MONGO_URL)
+.then(() => {
+    console.log("DB connection successful!");
+})
+.catch((err) => {
+    console.log("DB connection error:", err.message);
+});
+
+const server = app.listen(process.env.PORT, () => {
     console.log(`listening on port ${process.env.PORT}`);
 });
 
@@ -31,22 +33,20 @@ const io = socket(server, {
       origin: "http://localhost:5173",
       credentials: true,
     },
-  }
-);
+});
 
 global.onlineUsers = new Map();
-io.on("connection", (socket)=>{
-    socket.on("add-user", (userId)=>{
+io.on("connection", (socket) => {
+    socket.on("add-user", (userId) => {
         onlineUsers.set(userId, socket.id);
     });
-    socket.on("send-msg", (data)=>{
+    socket.on("send-msg", (data) => {
         const receiveUserSocket = onlineUsers.get(data.to);
-        if(receiveUserSocket)
-        {
+        if(receiveUserSocket) {
             socket.to(receiveUserSocket).emit("receive-msg", {
                 from: data.from,
                 msg: data.message,
             });
         }
     });
-})
+});
