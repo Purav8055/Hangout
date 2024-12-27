@@ -64,7 +64,6 @@ const Login = () => {
       }
       if(data.status === true)
       {
-        console.log(data);
         localStorage.setItem("currentUser", JSON.stringify(data.user));
         navigate("/");
       }

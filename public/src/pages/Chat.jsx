@@ -15,19 +15,19 @@ const Chat = () => {
   const navigate = useNavigate();
   const socket = useRef();
   useEffect(() => {
-      const initialize = ()=>{
-        if (!localStorage.getItem("currentUser")) {
-          navigate("/login");
-        } else {
-          setCurrentUser(
-            JSON.parse(
-              localStorage.getItem("currentUser")
-            )
-          );
-        }
+    const initialize = ()=>{
+      if (!localStorage.getItem("currentUser")) {
+        navigate("/login");
+      } else {
+        setCurrentUser(
+          JSON.parse(
+            localStorage.getItem("currentUser")
+          )
+        );
       }
-      initialize();
-  }, [])
+    }
+    initialize();
+}, [])
   useEffect(() => {
     if(currentUser)
     {
@@ -51,9 +51,9 @@ const Chat = () => {
   return (
     <Container>
       <div className='container'>
-        <Contacts contacts={contacts} setCurrentChat={setCurrentChat}/>
+        <Contacts contacts={contacts} setContacts={setContacts} setCurrentChat={setCurrentChat}/>
         {
-          currentChat===undefined ? <Welcome /> : <ChatContainer currentChat={currentChat} socket={socket}/>
+          currentChat===undefined ? <Welcome contacts={contacts}/> : <ChatContainer currentChat={currentChat} socket={socket}/>
         }
       </div>
     </Container>
@@ -71,7 +71,7 @@ const Container = styled.div`
   background-color: #131324;
 
   .container {
-    height: 85vh;
+    height: 100vh;
     width: 85vw;
     background-color: #00000076;
     display: grid;

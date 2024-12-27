@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react'
 import styled from 'styled-components'
 import Robot from "../assets/robot.gif"
 
-const Welcome = () => {
+const Welcome = ({contacts}) => {
   const [username, setUsername] = useState(undefined);
   useEffect(() => {
     setUsername(JSON.parse(localStorage.getItem("currentUser")).username)
@@ -14,7 +14,9 @@ const Welcome = () => {
       <h1>
         Welcome, <span>{username}!</span>
       </h1>
-      <h3>Please select a chat to Start messaging.</h3>
+      {
+        contacts.length === 0 ? <h3>Please add a friend to Start messaging.</h3> : <h3>Please select a chat to Start messaging.</h3>
+      }
     </Container>
   )
 }

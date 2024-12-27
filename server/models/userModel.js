@@ -27,6 +27,8 @@ const userSchema = new mongoose.Schema({
     type: String,
     default: "",
   },
+  friends: Array,
+  pending: Array,
 });
 
 module.exports = mongoose.model("Users", userSchema);

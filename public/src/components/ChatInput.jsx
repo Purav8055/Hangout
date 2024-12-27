@@ -91,15 +91,17 @@ const ChatInput = ({handleSendMessage, currentChat}) => {
 };
 
 const Container = styled.div`
+  height: 100%;
   display: grid;
   align-items: center;
   grid-template-columns: 5% 95%;
   background-color: #080420;
   padding: 0 2rem;
+  border-top: 1px solid #9a86f3;
 
   .emoji-picker-wrapper {
     position: absolute;
-    top: -450px;
+    bottom: 100px;  /* Changed from top to bottom positioning */
     box-shadow: 0 5px 10px #9a86f3;
     & ::-webkit-scrollbar {
       width: 5px;
@@ -114,9 +116,10 @@ const Container = styled.div`
     }
 
     @media screen and (max-width: 719px) {
-      top: -350px;
-      right: 0;
-      width: 280px;
+    grid-template-columns: 15% 85%;
+    padding: 0 0.5rem;
+    gap: 0.5rem;
+    min-height: 80px; /* Added minimum height */
     }
   }
 
@@ -152,6 +155,7 @@ const Container = styled.div`
 
   .input-container {
     width: 100%;
+    height: 60px; /* Added fixed height */
     border-radius: 2rem;
     display: flex;
     align-items: center;

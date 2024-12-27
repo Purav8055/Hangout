@@ -1,6 +1,5 @@
 import React from 'react'
 import styled from 'styled-components'
-import Logout from '../components/Logout'
 import { v4 as uuidv4 } from "uuid";
 import ChatInput from './ChatInput';
 import { useState, useEffect, useRef } from 'react';
@@ -15,7 +14,7 @@ const ChatContainer = ({currentChat, socket}) => {
       const user = JSON.parse(localStorage.getItem("currentUser"));
       const response = await axios.post(getMessageRoute, {
         from: user._id,
-        to: currentChat._id,
+        to: currentChat.id,
       });
       setMessages(response.data);
     }
@@ -26,7 +25,7 @@ const ChatContainer = ({currentChat, socket}) => {
     if(socket.current)
     {
       socket.current.on("receive-msg", (data)=>{
-        if(data.from===currentChat._id)
+        if(currentChat && data.from===currentChat.id)
         {
           setMessages((prev) => [...prev, {
             fromSelf: false,
@@ -53,12 +52,12 @@ const ChatContainer = ({currentChat, socket}) => {
     const data = JSON.parse(localStorage.getItem("currentUser"));
     socket.current.emit("send-msg", {
       from: data._id,
-      to: currentChat._id,
+      to: currentChat.id,
       message: msg,
     });
     await axios.post(sendMessageRoute, {
       from: data._id,
-      to: currentChat._id,
+      to: currentChat.id,
       message: msg,
     });
     const temp = [...messages];
@@ -82,7 +81,6 @@ const ChatContainer = ({currentChat, socket}) => {
             <h3>{currentChat.username}</h3>
           </div>
         </div>
-        <Logout />
       </div>
       <div className="chat-messages">
         {messages.map((message) => {
@@ -95,40 +93,44 @@ const ChatContainer = ({currentChat, socket}) => {
           );
         })}
       </div>
-      <ChatInput handleSendMessage = {handleSendMessage} currentChat={currentChat}/>
+      <div className="chat-input-container">
+        <ChatInput handleSendMessage={handleSendMessage} currentChat={currentChat} />
+      </div>
     </Container>
   )
 }
 
 const Container = styled.div`
-  display: grid;
-  grid-template-rows: 10% 80% 10%;
-  gap: 0.1rem;
+  display: flex; /* Use flexbox */
+  flex-direction: column; /* Stack elements vertically */
+  height: 100vh;
   overflow: hidden;
-  max-height: 100vh;  
+  background-color: #080420;
+
+  /* More aggressive adjustment: reduce the subtracted value */
+  grid-template-rows: 70px calc(100vh - (70px + 120px + 35px)) 120px; /* Increased padding adjustment to 30px */
 
   @media screen and (max-width: 719px) {
-    display: flex;     
-    flex-direction: column;
-    height: 100vh;
-    max-height: 100vh;
-    overflow: hidden;
+    grid-template-rows: 60px calc(100vh - (60px + 100px + 25px)) 100px; /* Increased padding adjustment for smaller screens */
   }
 
   @media screen and (min-width: 720px) and (max-width: 1080px) {
-    grid-template-rows: 15% 70% 15%;
+    grid-template-rows: 80px calc(100vh - (80px + 110px + 28px)) 110px; /* Increased padding adjustment for medium screens */
   }
 
   .chat-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    height: 70px;
+    min-height: 70px;
     padding: 0 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid #9a86f3;
 
     @media screen and (max-width: 719px) {
       padding: 0.5rem 1rem;
-      min-height: 60px;  
-      flex-shrink: 0;      
+      min-height: 60px;
+      flex-shrink: 0;
     }
 
     .user-details {
@@ -162,16 +164,19 @@ const Container = styled.div`
   }
 
   .chat-messages {
-    padding: 1rem 2rem;
+    flex-grow: 1; /* Allow messages to take up available space */
     display: flex;
     flex-direction: column;
+    height: 100%;
+    padding: 1rem 2rem;
     gap: 1rem;
-    overflow: auto;
+    overflow-y: auto;
+    padding: 1rem 2rem;
 
     @media screen and (max-width: 719px) {
       padding: 0.5rem 1rem;
       gap: 0.5rem;
-      flex: 1;          
+      flex: 1;
       overflow-y: auto;
     }
 
@@ -220,6 +225,16 @@ const Container = styled.div`
       .content {
         background-color: #9900ff20;
       }
+    }
+  }
+  .chat-input-container { /* New container for ChatInput */
+    height: 120px; /* Fixed height for input area */
+    /* Add any necessary padding or margin here */
+    @media screen and (max-width: 719px) {
+      height: 100px;
+    }
+    @media screen and (min-width: 720px) and (max-width: 1080px) {
+      height: 110px;
     }
   }
 `;
