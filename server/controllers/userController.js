@@ -74,7 +74,7 @@ module.exports.sendRequest = async(req, res, next) =>{
     if(data && data.length > 0)
     {
       await User.findOneAndUpdate(
-        {username: data[0].username},
+        {username: data[0]?.username},
         { $addToSet: { pending: {name: from, pic: avatarImage, id: fromId} } },
       )
       return res.status(200).json({ message: "Friend request sent" });

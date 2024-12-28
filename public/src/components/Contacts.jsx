@@ -22,7 +22,7 @@ const Contacts = ({contacts, setContacts, setCurrentChat}) => {
       const data = await JSON.parse(
         localStorage.getItem("currentUser")
       );
-      setCurrentUserName(data.username);
+      setCurrentUserName(data?.username);
       setCurrentUserImage(data.avatarImage);
     }
     initialize();
@@ -74,7 +74,7 @@ const Contacts = ({contacts, setContacts, setCurrentChat}) => {
               />
             </div>
             <div className="username">
-              <h3>{value.username}</h3>
+              <h3>{value?.username}</h3>
             </div>
           </div>
         ))}
@@ -99,7 +99,7 @@ const Contacts = ({contacts, setContacts, setCurrentChat}) => {
                   );
                   const data = await axios.post(acceptRoute, {
                     from: user._id,
-                    fromUsername: user.username,
+                    fromUsername: user?.username,
                     fromPic: user.avatarImage,
                     to: value.name,
                     toPic: value.pic,

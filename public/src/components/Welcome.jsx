@@ -5,7 +5,7 @@ import Robot from "../assets/robot.gif"
 const Welcome = ({contacts}) => {
   const [username, setUsername] = useState(undefined);
   useEffect(() => {
-    setUsername(JSON.parse(localStorage.getItem("currentUser")).username)
+    setUsername(JSON.parse(localStorage.getItem("currentUser"))?.username)
   }, [])
   
   return (

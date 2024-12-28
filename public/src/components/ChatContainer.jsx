@@ -78,7 +78,7 @@ const ChatContainer = ({currentChat, socket}) => {
             />
           </div>
           <div className="username">
-            <h3>{currentChat.username}</h3>
+            <h3>{currentChat?.username}</h3>
           </div>
         </div>
       </div>

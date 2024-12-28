@@ -13,7 +13,7 @@ const Input = ({setShowInput}) => {
     {
         alert("Enter a valid username");
     }
-    else if(data.username===friendUsername)
+    else if(data?.username===friendUsername)
     {
       alert("Can't send to self");
     }
@@ -21,7 +21,7 @@ const Input = ({setShowInput}) => {
         const data = JSON.parse(localStorage.getItem("currentUser"));
         const status = await axios.post(sendRequestRoute, {
             username: friendUsername,
-            from: data.username,
+            from: data?.username,
             avatarImage: data.avatarImage,
             fromId: data._id,
         })
