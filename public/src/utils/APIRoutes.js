@@ -1,4 +1,4 @@
-export const host = "http://hangout-10-env.eba-wdpuywpz.ap-south-1.elasticbeanstalk.com";
+export const host = "https://hangout-hlcx.onrender.com";
 export const registerRoute = `${host}/api/auth/register`;
 export const loginRoute = `${host}/api/auth/login`;
 export const setAvatarRoute = `${host}/api/auth/setAvatar`;
