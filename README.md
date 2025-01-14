@@ -14,6 +14,7 @@ Hangout is a real-time chat application developed using the MERN stack. The appl
 6. [Usage](#usage)
 7. [Features](#features)
 8. [Dependencies](#dependencies)
+9. [Live Demo](#live-demo)
 
 ---
 
@@ -149,3 +150,6 @@ node index.js
 - **dotenv**: For managing environment variables.
 
 ---
+
+## Live Demo
+Access the live version of the project here: [Hangout](https://master.d2fl7ji2d9wusi.amplifyapp.com)
